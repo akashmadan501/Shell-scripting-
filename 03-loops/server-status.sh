@@ -4,6 +4,8 @@ count=1
 
 while [ $count -le 5 ]
 do 
-	echo "Count: $count "
+	echo "Checking server status..."
+	uptime
+	sleep 2
 	((count++))
 done
