@@ -24,6 +24,12 @@ Common shells:
 #!/bin/bash
 
 # This is a comment
+<<notice
+This is 
+multi line
+comment
+notice
+
 echo "Hello World"
 ```
 
@@ -256,3 +262,92 @@ done
 - Add comments
 - Test scripts step by step
 - Make scripts executable with `chmod +x`
+
+---
+
+## 11. Special Device `/dev/null`
+
+`/dev/null` is a special device in Linux that discards anything sent to it.
+
+**Example:**
+```bash
+ls > /dev/null
+```
+
+This runs the command but hides the output.
+
+### Redirect STDOUT
+```bash
+>/dev/null
+```
+
+Redirects STDOUT to `/dev/null`, hiding normal output.
+
+**Example:**
+```bash
+ls >/dev/null
+```
+
+---
+
+## 12. Redirect STDERR to STDOUT
+
+```bash
+2>&1
+```
+
+Redirects STDERR (file descriptor 2) to the same location as STDOUT (file descriptor 1).
+
+| Symbol | Meaning |
+|--------|---------|
+| `2` | STDERR |
+| `>` | redirect |
+| `&1` | same destination as STDOUT |
+
+**Example:**
+
+```bash
+ls >/dev/null 2>&1
+```
+
+---
+
+## 13. Conditions vs Commands in Bash
+
+In shell scripting, **conditions use `[ ]`**, but **commands do not need `[ ]`**.
+
+### Using `[ ]` for Conditions
+
+Square brackets are used when checking **numbers, strings, or files**.
+
+```bash
+num=10
+
+if [ $num -gt 5 ]
+then
+    echo "Number is greater than 5"
+fi
+```
+
+### Using Commands in if
+
+When using a command, `[ ]` is not needed. If checks the exit status of the command.
+
+- `0` → success (true)
+- non-zero → failure (false)
+
+```bash
+if dpkg -s nginx >/dev/null 2>&1
+then
+    echo "nginx is installed"
+else
+    echo "nginx is not installed"
+fi
+```
+
+### Summary
+
+| Type | Syntax |
+|------|--------|
+| Condition | `if [ condition ]` |
+| Command | `if command` |
